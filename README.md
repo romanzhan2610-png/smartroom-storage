@@ -1,47 +1,47 @@
 # SmartRoom Storage Calculator
 
-A standalone, isolated storage calculator landing page built with **Vite + Vanilla JS**, ready for WordPress embedding.
+Изолированный лендинг-калькулятор хранения, собранный на **Vite + Vanilla JS**, готовый к встраиванию в WordPress.
 
-## 🔗 Live Pages
+## 🔗 Живые страницы
 
-| Page | URL |
-|------|-----|
-| 🏠 **Frontend** | [romanzhan2610-png.github.io/smartroom-storage/](https://romanzhan2610-png.github.io/smartroom-storage/) |
-| ⚙️ **Admin Panel** | [romanzhan2610-png.github.io/smartroom-storage/admin.html](https://romanzhan2610-png.github.io/smartroom-storage/admin.html) |
+| Страница | URL |
+|----------|-----|
+| 🏠 **Фронтенд** | [romanzhan2610-png.github.io/smartroom-storage/](https://romanzhan2610-png.github.io/smartroom-storage/) |
+| ⚙️ **Админ-панель** | [romanzhan2610-png.github.io/smartroom-storage/admin.html](https://romanzhan2610-png.github.io/smartroom-storage/admin.html) |
 
-## 🛠 Tech Stack
+## 🛠 Стек
 
-- **Build:** Vite 8
-- **HTML:** Handlebars partials (`vite-plugin-handlebars`)
+- **Сборщик:** Vite 8
+- **HTML:** Handlebars-партиалы (`vite-plugin-handlebars`)
 - **CSS:** Vanilla CSS + PostCSS + PurgeCSS
-- **JS:** ES Modules (Vanilla JS, no framework)
-- **Animations:** GSAP + ScrollToPlugin
-- **Deploy:** `gh-pages` → GitHub Pages
+- **JS:** ES Modules (Vanilla JS, без фреймворка)
+- **Анимации:** GSAP + ScrollToPlugin
+- **Деплой:** `gh-pages` → GitHub Pages
 
-## 📁 Structure
+## 📁 Структура
 
 ```
 src/
-├── index.html          # Main entry
-├── admin.html          # Admin panel
-├── partials/           # HTML components (header, calculator, footer…)
-├── css/                # Stylesheets per component
+├── index.html          # Главная страница
+├── admin.html          # Панель администратора
+├── partials/           # HTML-компоненты (header, calculator, footer…)
+├── css/                # Стили по компонентам
 └── js/
     ├── main.js
     └── modules/
-        └── calculator/ # Calculator logic + data
+        └── calculator/ # Логика и данные калькулятора
 ```
 
-## 🚀 Development
+## 🚀 Разработка
 
 ```bash
 npm install
-npm run dev       # Start dev server at localhost:3000
-npm run build     # Production build → dist/
-npm run deploy    # Build + push to gh-pages branch
+npm run dev       # Запуск dev-сервера на localhost:3000
+npm run build     # Продакшн-сборка → dist/
+npm run deploy    # Сборка + деплой на ветку gh-pages
 ```
 
-## 🔌 WordPress Integration
+## 🔌 Интеграция с WordPress
 
-The project is fully isolated (no `wp-head` / `wp-footer` dependencies).  
-See [`wp_integration.md`](wp_integration.md) for the architectural blueprint on embedding via a WordPress plugin + REST API.
+Проект полностью изолирован (без зависимостей от `wp-head` / `wp-footer`).  
+Подробный план встраивания через плагин WordPress + REST API — в файле [`wp_integration.md`](wp_integration.md).
