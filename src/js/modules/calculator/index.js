@@ -312,6 +312,191 @@ export function initCalculator() {
             },
           });
 
+          const tl = gsap.timeline({
+            onComplete: () => {
+              gsap.set(panel, {
+                clearProps:
+                  "maxWidth,width,height,minHeight,borderRadius,padding",
+              });
+            },
+          });
+          tl.to(panel, {
+            maxWidth: "100%",
+            width: "100%",
+            height: _forceLayout,
+            minHeight: "75vh",
+            borderRadius: "0px",
+            padding: "20px",
+            duration: 0.8,
+            ease: "expo.inOut",
+            onStart: () => panel.classList.add("is-expanded"),
+          }).to(
+            expandedElementsToFadeIn,
+            { opacity: 1, duration: 0.4, ease: "power2.out" },
+            "-=0.4",
+          );
+
+          if (window.innerWidth <= 820) {
+            const mobileSidebar = expandedView.querySelector(".calc-sidebar");
+            if (mobileSidebar) {
+              gsap.fromTo(
+                mobileSidebar,
+                { y: "100%" },
+                { y: "0%", duration: 0.6, ease: "expo.out" },
+              );
+            }
+          }
+
+          gsap.to(window, {
+            scrollTo: { y: heroTitle, offsetY: 100 },
+            duration: 0.8,
+            ease: "power2.inOut",
+          });
+        },
+      });
+    }, 800);
+  });
+
+  backBtn.addEventListener("click", () => {
+    const startPos = getRelativePos(sharedToggle, panel);
+
+    const startSpacer = document.createElement("div");
+    startSpacer.style.cssText = `width: ${startPos.width}px; height: ${startPos.height}px; flex-shrink: 0; box-sizing: border-box;`;
+    sharedToggle.parentNode.replaceChild(startSpacer, sharedToggle);
+
+    const origPanelCss = panel.style.cssText;
+    const isMobile = window.innerWidth <= 820;
+
+    panel.classList.remove("is-expanded");
+    expandedView.style.display = "none";
+    initialView.style.display = "flex";
+
+    panel.style.cssText = `
+            max-width: 800px;
+            width: ${isMobile ? "calc(100% - 40px)" : "100%"};
+            height: ${isMobile ? "140px" : "58px"};
+            min-height: ${isMobile ? "140px" : "58px"};
+            padding: ${isMobile ? "12px" : "6px"};
+            border-radius: ${isMobile ? "16px" : "100px"};
+        `;
+
+    initialView.insertBefore(sharedToggle, initialView.firstChild);
+    const _forceLayout = panel.offsetHeight;
+
+    const endPos = getRelativePos(sharedToggle, panel);
+
+    const endSpacer = document.createElement("div");
+    endSpacer.style.cssText = `width: ${endPos.width}px; height: ${endPos.height}px; flex-shrink: 0; box-sizing: border-box;`;
+    sharedToggle.parentNode.replaceChild(endSpacer, sharedToggle);
+
+    panel.appendChild(sharedToggle);
+    gsap.set(sharedToggle, {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      x: startPos.left,
+      y: startPos.top,
+      width: startPos.width,
+      height: startPos.height,
+      margin: 0,
+      boxSizing: "border-box",
+      zIndex: 50,
+    });
+
+    panel.classList.add("is-expanded");
+    panel.style.cssText = origPanelCss;
+    initialView.style.display = "none";
+    expandedView.style.display = "block";
+    expandedView.style.opacity = "1";
+
+    const expandedElementsToHide = expandedView.querySelectorAll(
+      ".calc-back-btn, .calc-postcode-display, .calc-content",
+    );
+    const initialElementsToFadeIn = initialView.querySelectorAll(
+      ".storage-form__divider, .storage-form__action-group",
+    );
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        panel.classList.remove("is-expanded");
+        gsap.set(
+          [
+            panel,
+            initialView,
+            expandedView,
+            initialElementsToFadeIn,
+            expandedElementsToHide,
+          ],
+          { clearProps: "all" },
+        );
+        expandedView.style.display = "none";
+        messages.style.display = "block";
+        if (currentPostcodeInput) currentPostcodeInput.disabled = false;
+        revertToPill();
+        postcodeSearchMode.classList.remove("is-error");
+        gsap.to(".storage-form__messages", {
+          opacity: 1,
+          duration: 0.4,
+          ease: "power2.out",
+          clearProps: "all",
+        });
+      },
+    });
+
+    tl.to(expandedElementsToHide, {
+      opacity: 0,
+      duration: 0.2,
+      ease: "power2.inOut",
+      onStart: () => {
+        if (window.innerWidth <= 820) {
+          const mobileSidebar = expandedView.querySelector(".calc-sidebar");
+          if (mobileSidebar) {
+            gsap.to(mobileSidebar, {
+              y: "100%",
+              duration: 0.3,
+              ease: "power2.in",
+            });
+          }
+        }
+      },
+      onComplete: () => {
+        expandedView.style.display = "none";
+        initialView.style.display = "flex";
+        gsap.set(initialElementsToFadeIn, { opacity: 0 });
+
+        gsap.to(sharedToggle, {
+          x: endPos.left,
+          y: endPos.top,
+          width: endPos.width,
+          height: endPos.height,
+          duration: 0.8,
+          ease: "expo.inOut",
+          onComplete: () => {
+            gsap.set(sharedToggle, { clearProps: "all" });
+            endSpacer.parentNode.replaceChild(sharedToggle, endSpacer);
+            if (startSpacer.parentNode) startSpacer.remove();
+          },
+        });
+      },
+    })
+      .to(
+        panel,
+        {
+          maxWidth: "800px",
+          width: window.innerWidth <= 820 ? "calc(100% - 40px)" : "100%",
+          height: window.innerWidth <= 820 ? "140px" : "58px",
+          minHeight: window.innerWidth <= 820 ? "140px" : "58px",
+          borderRadius: window.innerWidth <= 820 ? "16px" : "100px",
+          padding: window.innerWidth <= 820 ? "12px" : "6px",
+          duration: 0.8,
+          ease: "expo.inOut",
+        },
+        "+=0",
+      )
+      .to(
+        initialElementsToFadeIn,
+        { opacity: 1, duration: 0.4, ease: "power2.out" },
+        "-=0.2",
       );
 
     gsap.to(window, {
@@ -321,148 +506,150 @@ export function initCalculator() {
     });
   });
 
-let selectedBoxesState = {};
+  let selectedBoxesState = {};
 
-const boxesItemsList = document.getElementById("boxesItemsList");
-const summaryItems = document.getElementById("summaryItems");
-const summarySubtotal = document.getElementById("summarySubtotal");
-const summaryTotal = document.getElementById("summaryTotal");
-const boxesContinueBtn = document.getElementById("boxesContinueBtn");
+  const boxesItemsList = document.getElementById("boxesItemsList");
+  const summaryItems = document.getElementById("summaryItems");
+  const summarySubtotal = document.getElementById("summarySubtotal");
+  const summaryTotal = document.getElementById("summaryTotal");
+  const boxesContinueBtn = document.getElementById("boxesContinueBtn");
 
-function renderBoxesItems() {
-  boxesItemsList.innerHTML = "";
-  boxItemsData.forEach((item) => {
-    selectedBoxesState[item.id] = 0;
+  function renderBoxesItems() {
+    boxesItemsList.innerHTML = "";
+    boxItemsData.forEach((item) => {
+      selectedBoxesState[item.id] = 0;
 
-    const row = document.createElement("div");
-    row.className = "item-row";
-    row.innerHTML = `
-            <div class="item-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-            </div>
-            <div class="item-info">
-                <div class="item-title">${item.name}</div>
-                <div class="item-desc">${item.desc}</div>
-            </div>
-            <div class="qty-control">
-                <button type="button" class="qty-btn calc-minus" data-id="${item.id}">−</button>
-                <input type="number" class="qty-input item-qty-val" id="qty_${item.id}" value="0" readonly>
-                <button type="button" class="qty-btn calc-plus" data-id="${item.id}">+</button>
-            </div>
-        `;
-    boxesItemsList.appendChild(row);
+      const row = document.createElement("div");
+      row.className = "item-row";
+      row.innerHTML = `
+              <div class="item-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+              </div>
+              <div class="item-info">
+                  <div class="item-title">${item.name}</div>
+                  <div class="item-desc">${item.desc}</div>
+              </div>
+              <div class="qty-control">
+                  <button type="button" class="qty-btn calc-minus" data-id="${item.id}">−</button>
+                  <input type="number" class="qty-input item-qty-val" id="qty_${item.id}" value="0" readonly>
+                  <button type="button" class="qty-btn calc-plus" data-id="${item.id}">+</button>
+              </div>
+          `;
+      boxesItemsList.appendChild(row);
+    });
+
+    document.querySelectorAll("#boxesItemsList .calc-minus").forEach((btn) => {
+      btn.addEventListener("click", (e) =>
+        updateItemQty(e.target.dataset.id, -1),
+      );
+    });
+    document.querySelectorAll("#boxesItemsList .calc-plus").forEach((btn) => {
+      btn.addEventListener("click", (e) =>
+        updateItemQty(e.target.dataset.id, 1),
+      );
+    });
+  }
+
+  function updateItemQty(id, change) {
+    let currentQty = selectedBoxesState[id];
+    let newQty = currentQty + change;
+    if (newQty < 0) newQty = 0;
+
+    selectedBoxesState[id] = newQty;
+    document.getElementById(`qty_${id}`).value = newQty;
+
+    updateSummary();
+  }
+
+  function updateSummary() {
+    let subtotal = 0;
+    let hasItems = false;
+    summaryItems.innerHTML = "";
+
+    boxItemsData.forEach((item) => {
+      const qty = selectedBoxesState[item.id];
+      if (qty > 0) {
+        hasItems = true;
+        const itemTotal = qty * item.price;
+        subtotal += itemTotal;
+
+        const line = document.createElement("div");
+        line.className = "summary-item-line";
+        line.innerHTML = `<span>${qty}x ${item.name}</span> <span>£${itemTotal.toFixed(2)}</span>`;
+        summaryItems.appendChild(line);
+      }
+    });
+
+    if (!hasItems) {
+      summaryItems.innerHTML =
+        '<div class="summary-empty">Please select items to store.</div>';
+      boxesContinueBtn.disabled = true;
+    } else {
+      boxesContinueBtn.disabled = false;
+    }
+
+    summarySubtotal.textContent = `£${subtotal.toFixed(2)}`;
+    summaryTotal.textContent = `£${subtotal.toFixed(2)}`;
+  }
+
+  const durationMinus = document.getElementById("durationMinus");
+  const durationPlus = document.getElementById("durationPlus");
+  const durationInput = document.getElementById("durationInput");
+  const rollingPlanToggle = document.getElementById("rollingPlanToggle");
+  const durationPromo = document.getElementById("durationPromo");
+  const rollingText = document.getElementById("rollingText");
+  const qtyControlWrap = document.querySelector(".duration-qty");
+
+  let isRollingPlan = false;
+
+  durationMinus.addEventListener("click", () => {
+    let val = parseInt(durationInput.value);
+    if (val > 1) durationInput.value = val - 1;
   });
 
-  document.querySelectorAll("#boxesItemsList .calc-minus").forEach((btn) => {
-    btn.addEventListener("click", (e) =>
-      updateItemQty(e.target.dataset.id, -1),
-    );
+  durationPlus.addEventListener("click", () => {
+    let val = parseInt(durationInput.value);
+    if (val < 36) durationInput.value = val + 1;
   });
-  document.querySelectorAll("#boxesItemsList .calc-plus").forEach((btn) => {
-    btn.addEventListener("click", (e) => updateItemQty(e.target.dataset.id, 1));
-  });
-}
 
-function updateItemQty(id, change) {
-  let currentQty = selectedBoxesState[id];
-  let newQty = currentQty + change;
-  if (newQty < 0) newQty = 0;
-
-  selectedBoxesState[id] = newQty;
-  document.getElementById(`qty_${id}`).value = newQty;
-
-  updateSummary();
-}
-
-function updateSummary() {
-  let subtotal = 0;
-  let hasItems = false;
-  summaryItems.innerHTML = "";
-
-  boxItemsData.forEach((item) => {
-    const qty = selectedBoxesState[item.id];
-    if (qty > 0) {
-      hasItems = true;
-      const itemTotal = qty * item.price;
-      subtotal += itemTotal;
-
-      const line = document.createElement("div");
-      line.className = "summary-item-line";
-      line.innerHTML = `<span>${qty}x ${item.name}</span> <span>£${itemTotal.toFixed(2)}</span>`;
-      summaryItems.appendChild(line);
+  rollingPlanToggle.addEventListener("click", () => {
+    isRollingPlan = !isRollingPlan;
+    if (isRollingPlan) {
+      qtyControlWrap.classList.add("is-disabled");
+      durationPromo.style.display = "none";
+      rollingText.style.display = "block";
+      rollingPlanToggle.textContent = "I know my duration";
+    } else {
+      qtyControlWrap.classList.remove("is-disabled");
+      durationPromo.style.display = "block";
+      rollingText.style.display = "none";
+      rollingPlanToggle.textContent = "Not sure how long?";
     }
   });
 
-  if (!hasItems) {
-    summaryItems.innerHTML =
-      '<div class="summary-empty">Please select items to store.</div>';
-    boxesContinueBtn.disabled = true;
-  } else {
-    boxesContinueBtn.disabled = false;
+  const summaryCard = document.getElementById("summaryCard");
+  const summaryMobileToggle = document.getElementById("summaryMobileToggle");
+  const mobileSummaryTotal = document.getElementById("mobileSummaryTotal");
+  const mobileContinueBtn = document.getElementById("mobileContinueBtn");
+
+  if (summaryMobileToggle) {
+    summaryMobileToggle.addEventListener("click", () => {
+      summaryCard.classList.toggle("is-expanded");
+    });
   }
 
-  summarySubtotal.textContent = `£${subtotal.toFixed(2)}`;
-  summaryTotal.textContent = `£${subtotal.toFixed(2)}`;
-}
+  const originalUpdateSummary = updateSummary;
+  updateSummary = function () {
+    originalUpdateSummary();
 
-const durationMinus = document.getElementById("durationMinus");
-const durationPlus = document.getElementById("durationPlus");
-const durationInput = document.getElementById("durationInput");
-const rollingPlanToggle = document.getElementById("rollingPlanToggle");
-const durationPromo = document.getElementById("durationPromo");
-const rollingText = document.getElementById("rollingText");
-const qtyControlWrap = document.querySelector(".duration-qty");
+    if (mobileSummaryTotal) {
+      mobileSummaryTotal.textContent = summaryTotal.textContent;
+    }
 
-let isRollingPlan = false;
+    if (mobileContinueBtn && boxesContinueBtn) {
+      mobileContinueBtn.disabled = boxesContinueBtn.disabled;
+    }
+  };
 
-durationMinus.addEventListener("click", () => {
-  let val = parseInt(durationInput.value);
-  if (val > 1) durationInput.value = val - 1;
-});
-
-durationPlus.addEventListener("click", () => {
-  let val = parseInt(durationInput.value);
-  if (val < 36) durationInput.value = val + 1;
-});
-
-rollingPlanToggle.addEventListener("click", () => {
-  isRollingPlan = !isRollingPlan;
-  if (isRollingPlan) {
-    qtyControlWrap.classList.add("is-disabled");
-    durationPromo.style.display = "none";
-    rollingText.style.display = "block";
-    rollingPlanToggle.textContent = "I know my duration";
-  } else {
-    qtyControlWrap.classList.remove("is-disabled");
-    durationPromo.style.display = "block";
-    rollingText.style.display = "none";
-    rollingPlanToggle.textContent = "Not sure how long?";
-  }
-});
-
-const summaryCard = document.getElementById("summaryCard");
-const summaryMobileToggle = document.getElementById("summaryMobileToggle");
-const mobileSummaryTotal = document.getElementById("mobileSummaryTotal");
-const mobileContinueBtn = document.getElementById("mobileContinueBtn");
-
-if (summaryMobileToggle) {
-  summaryMobileToggle.addEventListener("click", () => {
-    summaryCard.classList.toggle("is-expanded");
-  });
-}
-
-const originalUpdateSummary = updateSummary;
-updateSummary = function () {
-  originalUpdateSummary();
-
-  if (mobileSummaryTotal) {
-    mobileSummaryTotal.textContent = summaryTotal.textContent;
-  }
-
-  if (mobileContinueBtn && boxesContinueBtn) {
-    mobileContinueBtn.disabled = boxesContinueBtn.disabled;
-  }
-};
-
-renderBoxesItems();
+  renderBoxesItems();
 }

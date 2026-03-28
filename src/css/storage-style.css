@@ -59,7 +59,7 @@
 
 .storage-form__panel {
   display: flex;
-  align-items: top;
+  align-items: flex-start;
   background-color: #ffffff;
   border-radius: 100px;
   padding: 4px;
@@ -200,7 +200,7 @@
 }
 
 .calc-postcode-text {
-  font-family: "Inter", sans-serif;
+  font-family: "Lexend", sans-serif;
   font-size: 1rem;
   font-weight: 600;
   color: #111827;
@@ -262,7 +262,7 @@
 }
 
 .calc-edit-input {
-  font-family: "Inter", sans-serif;
+  font-family: "Lexend", sans-serif;
   font-size: 1.05rem;
   font-weight: 500;
   color: #111827;
@@ -343,7 +343,6 @@
 .autocomplete-item {
   padding: 12px 16px;
   cursor: pointer;
-  font-family: "Inter", sans-serif;
   font-size: 1rem;
   color: #111827;
   transition: background-color 0.2s;
@@ -472,7 +471,7 @@
 .calc-content-text {
   color: #6b7280;
   font-size: 1.1rem;
-  font-family: "Inter", sans-serif;
+  font-family: "Lexend", sans-serif;
 }
 
 .calc-wrapper {
@@ -585,7 +584,7 @@
   align-items: center;
   gap: 8px;
   color: #9ca3af;
-  font-family: "Inter", sans-serif;
+  font-family: "Lexend", sans-serif;
   font-size: 0.85rem;
   font-weight: 500;
 }
@@ -641,16 +640,16 @@
 }
 .duration-card__promo {
   color: #059669;
-  font-family: "Inter", sans-serif;
+  font-family: "Lexend", sans-serif;
   font-size: 0.9rem;
   margin-bottom: 16px;
   line-height: 1.4;
 }
 .duration-card__rolling-text {
-  color: #4b5563;
-  font-family: "Inter", sans-serif;
+  color: #059669;
+  font-family: "Lexend", sans-serif;
   font-size: 0.9rem;
-  margin-bottom: 16px;
+  margin-bottom: 16px !important;
   line-height: 1.4;
 }
 .duration-card__controls {
@@ -696,7 +695,7 @@
   width: 40px;
   text-align: center;
   border: none;
-  font-family: "Inter", sans-serif;
+  font-family: "Lexend", sans-serif;
   font-weight: 600;
   font-size: 1rem;
   color: #111827;
@@ -709,7 +708,7 @@
   margin: 0;
 }
 .qty-label {
-  font-family: "Inter", sans-serif;
+  font-family: "Lexend", sans-serif;
   font-size: 0.9rem;
   color: #6b7280;
   padding-right: 6px;
@@ -719,7 +718,7 @@
   background: transparent;
   border: none;
   color: #0d0b9c;
-  font-family: "Inter", sans-serif;
+  font-family: "Lexend", sans-serif;
   font-weight: 500;
   font-size: 0.9rem;
   text-decoration: underline;
@@ -761,15 +760,14 @@
   min-width: 0; /* ФИКС: не дает тексту вытолкнуть кнопки за экран */
 }
 .item-title {
-  font-family: "Inter", sans-serif;
+  font-family: "Lexend", sans-serif;
   font-weight: 600;
   font-size: 1rem;
   color: #111827;
-  margin-bottom: 4px;
   word-break: break-word; /* ФИКС: перенос длинных слов */
 }
 .item-desc {
-  font-family: "Inter", sans-serif;
+  font-family: "Lexend", sans-serif;
   font-size: 0.8rem;
   color: #6b7280;
   word-break: break-word; /* ФИКС: перенос длинных слов */
@@ -784,21 +782,21 @@
   background: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 16px;
-  padding: 24px;
+  padding: 20px;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
 }
 .summary-card__title {
   font-family: "Lexend", sans-serif;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #111827;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
   border-bottom: 1px solid #e5e7eb;
 }
 .summary-card__items {
   min-height: 60px;
-  margin-bottom: 20px;
-  font-family: "Inter", sans-serif;
+  margin-bottom: 16px;
+  font-family: "Lexend", sans-serif;
   font-size: 0.9rem;
 }
 .summary-item-line {
@@ -814,39 +812,45 @@
 }
 .summary-card__totals {
   border-top: 1px solid #e5e7eb;
-  padding-top: 16px;
-  margin-bottom: 24px;
+  padding-top: 12px;
+  margin-bottom: 16px;
 }
 .summary-row {
   display: flex;
   justify-content: space-between;
-  font-family: "Inter", sans-serif;
+  font-family: "Lexend", sans-serif;
   font-size: 0.95rem;
   color: #4b5563;
   margin-bottom: 8px;
 }
 .summary-total {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: #111827;
-  margin-top: 12px;
+  margin-top: 8px;
 }
 .summary-card__info {
   display: flex;
-  gap: 12px;
+  gap: 8px;
   background: #f0fdf4;
   border: 1px solid #bbf7d0;
-  padding: 16px;
+  padding: 12px;
   border-radius: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   color: #166534;
-  font-family: "Inter", sans-serif;
-  font-size: 0.8rem;
+  font-family: "Lexend", sans-serif;
+  font-size: 0.85rem;
   line-height: 1.4;
+  text-align: left;
 }
 .summary-card__info svg {
   flex-shrink: 0;
   color: #15803d;
+}
+.summary-card__info p {
+  margin: 0;
+  font-size: inherit;
+  color: inherit;
 }
 .btn-continue {
   width: 100%;
@@ -854,8 +858,8 @@
   color: #fff;
   font-family: "Lexend", sans-serif;
   font-weight: 600;
-  font-size: 1.1rem;
-  padding: 16px;
+  font-size: 1rem;
+  padding: 12px 16px;
   border-radius: 100px;
   border: none;
   cursor: pointer;
@@ -971,7 +975,7 @@
     cursor: pointer;
   }
   .summary-mobile-label {
-    font-family: "Inter", sans-serif;
+    font-family: "Lexend", sans-serif;
     font-size: 0.8rem;
     color: #6b7280;
     margin-bottom: 2px;
