@@ -142,145 +142,337 @@
         </header>
 
     <main>
-            <section class="storage-hero">
-              <video class="storage-hero__video" autoplay loop muted playsinline>
-                <source
-                  src="https://smartroom.co.uk/wp-content/themes/hello-elementor/4569931-uhd_4096_2160_25fps.mp4"
-                  type="video/mp4"
-                />
-              </video>
+      <section class="storage-hero">
+        <video class="storage-hero__video" autoplay loop muted playsinline>
+          <source
+            src="https://smartroom.co.uk/wp-content/themes/hello-elementor/4569931-uhd_4096_2160_25fps.mp4"
+            type="video/mp4"
+          />
+        </video>
       
-              <div class="storage-hero__overlay"></div>
+        <div class="storage-hero__overlay"></div>
       
-              <div class="storage-hero__content">
-                <h1 class="storage-hero__title">
-                  Storage with home collection and delivery
-                </h1>
+        <div class="storage-hero__content">
+          <h1 class="storage-hero__title">
+            Storage with home collection and delivery
+          </h1>
       
-                <form class="storage-form" id="storageForm" action="#" novalidate>
-                  <div class="storage-form__panel" id="formPanel">
-                    <div class="calc-initial-view" id="initialView">
-                      <div class="storage-form__toggle" id="sharedToggle">
-                        <button
-                          type="button"
-                          class="storage-toggle-btn is-active"
-                          data-value="boxes"
+          <form class="storage-form" id="storageForm" action="#" novalidate>
+            <div class="storage-form__panel" id="formPanel">
+              <div class="calc-initial-view" id="initialView">
+                <div class="storage-form__toggle" id="sharedToggle">
+                  <button
+                    type="button"
+                    class="storage-toggle-btn is-active"
+                    data-value="boxes"
+                  >
+                    For boxes
+                  </button>
+                  <button
+                    type="button"
+                    class="storage-toggle-btn"
+                    data-value="furniture"
+                  >
+                    For furniture and boxes
+                  </button>
+                  <input
+                    type="hidden"
+                    name="storage_type"
+                    id="storageType"
+                    value="boxes"
+                  />
+                </div>
+      
+                <div class="storage-form__divider"></div>
+      
+                <div class="storage-form__action-group">
+                  <div class="storage-form__input-wrapper">
+                    <input
+                      type="text"
+                      id="postcode"
+                      name="postcode"
+                      class="storage-form__input"
+                      placeholder="Enter postcode"
+                      autocomplete="off"
+                      value="SW1A 1AA"
+                    />
+                    <ul class="autocomplete-list main-autocomplete"></ul>
+                  </div>
+      
+                  <button
+                    type="submit"
+                    class="storage-form__submit"
+                    aria-label="Get prices"
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5 12H19M19 12L12 5M19 12L12 19"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+      
+              <div class="calc-expanded-view" id="expandedView" style="display: none">
+                <div class="panel-top-bar">
+                  <button
+                    type="button"
+                    class="calc-back-btn"
+                    aria-label="Back to postcode"
+                  >
+                    <svg
+                      width="28"
+                      height="28"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="m12 19-7-7 7-7" />
+                      <path d="M19 12H5" />
+                    </svg>
+                  </button>
+      
+                  <div
+                    class="toggle-container-expanded"
+                    id="toggleExpandedSlot"
+                  ></div>
+      
+                  <div class="calc-postcode-display">
+                    <div class="postcode-pill" id="postcodePill">
+                      <svg
+                        class="pill-icon"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                        <circle cx="12" cy="10" r="3" />
+                      </svg>
+                      <span class="calc-postcode-text">SW1A 1AA</span>
+                      <button
+                        type="button"
+                        class="calc-edit-btn"
+                        aria-label="Edit postcode"
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
                         >
-                          For boxes
-                        </button>
-                        <button
-                          type="button"
-                          class="storage-toggle-btn"
-                          data-value="furniture"
-                        >
-                          For furniture and boxes
-                        </button>
-                        <input
-                          type="hidden"
-                          name="storage_type"
-                          id="storageType"
-                          value="boxes"
-                        />
-                      </div>
-      
-                      <div class="storage-form__divider"></div>
-      
-                      <div class="storage-form__action-group">
-                        <div class="storage-form__input-wrapper">
-                          <input
-                            type="text"
-                            id="postcode"
-                            name="postcode"
-                            class="storage-form__input"
-                            placeholder="Enter postcode"
-                            autocomplete="off"
-                            value="SW1A 1AA"
+                          <path
+                            d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"
                           />
-                          <ul class="autocomplete-list main-autocomplete"></ul>
-                        </div>
+                          <path d="m15 5 4 4" />
+                        </svg>
+                      </button>
+                    </div>
+                    <div
+                      class="postcode-search-mode"
+                      id="postcodeSearchMode"
+                      style="display: none"
+                    >
+                      <svg
+                        class="search-icon"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.3-4.3" />
+                      </svg>
+                      <input
+                        type="text"
+                        class="calc-edit-input"
+                        autocomplete="off"
+                        placeholder="Enter postcode"
+                      />
+                      <ul class="autocomplete-list edit-autocomplete"></ul>
+                    </div>
+                  </div>
+                </div>
       
-                        <button
-                          type="submit"
-                          class="storage-form__submit"
-                          aria-label="Get prices"
-                        >
-                          <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M5 12H19M19 12L12 5M19 12L12 19"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                          </svg>
-                        </button>
+                <div class="calc-content">
+                  <div class="calc-wrapper" id="calcBoxesView">
+                    <div class="calc-steps">
+                      <div class="step is-active">
+                        <span class="step-num">1</span>
+                        <span class="step-text">Storage</span>
+                      </div>
+                      <div class="step-divider"></div>
+                      <div class="step">
+                        <span class="step-num">2</span>
+                        <span class="step-text">Address</span>
+                      </div>
+                      <div class="step-divider"></div>
+                      <div class="step">
+                        <span class="step-num">3</span>
+                        <span class="step-text">Date</span>
+                      </div>
+                      <div class="step-divider"></div>
+                      <div class="step">
+                        <span class="step-num">4</span>
+                        <span class="step-text">Checkout</span>
                       </div>
                     </div>
       
-                    <div
-                      class="calc-expanded-view"
-                      id="expandedView"
-                      style="display: none"
-                    >
-                      <div class="panel-top-bar">
-                        <button
-                          type="button"
-                          class="calc-back-btn"
-                          aria-label="Back to postcode"
-                        >
-                          <svg
-                            width="28"
-                            height="28"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path d="m12 19-7-7 7-7" />
-                            <path d="M19 12H5" />
-                          </svg>
-                        </button>
+                    <div class="calc-layout">
+                      <div class="calc-main">
+                        <section class="calc-section">
+                          <h3 class="calc-section-title">
+                            How long are you storing?
+                          </h3>
       
-                        <div
-                          class="toggle-container-expanded"
-                          id="toggleExpandedSlot"
-                        ></div>
+                          <div class="duration-card" id="durationCard">
+                            <div class="duration-card__header">
+                              <p class="duration-card__promo" id="durationPromo">
+                                The longer you store, the more you save. Enjoy a
+                                <strong>45% discount!</strong>
+                              </p>
+                              <p
+                                class="duration-card__rolling-text"
+                                id="rollingText"
+                                style="display: none"
+                              >
+                                You've selected a rolling monthly plan, order your
+                                boxes back anytime.
+                              </p>
+                            </div>
       
-                        <div class="calc-postcode-display">
-                          <div class="postcode-pill" id="postcodePill">
-                            <svg
-                              class="pill-icon"
-                              width="20"
-                              height="20"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            >
-                              <path
-                                d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"
-                              />
-                              <circle cx="12" cy="10" r="3" />
-                            </svg>
-                            <span class="calc-postcode-text">SW1A 1AA</span>
+                            <div class="duration-card__controls">
+                              <div class="qty-control duration-qty">
+                                <button
+                                  type="button"
+                                  class="qty-btn"
+                                  id="durationMinus"
+                                >
+                                  −
+                                </button>
+                                <input
+                                  type="number"
+                                  class="qty-input"
+                                  id="durationInput"
+                                  value="6"
+                                  min="1"
+                                  max="36"
+                                  readonly
+                                />
+                                <span class="qty-label">months</span>
+                                <button
+                                  type="button"
+                                  class="qty-btn"
+                                  id="durationPlus"
+                                >
+                                  +
+                                </button>
+                              </div>
+      
+                              <button
+                                type="button"
+                                class="btn-text"
+                                id="rollingPlanToggle"
+                              >
+                                Not sure how long?
+                              </button>
+                            </div>
+                          </div>
+                        </section>
+      
+                        <section class="calc-section">
+                          <h3 class="calc-section-title">What are you storing?</h3>
+                          <div class="items-list" id="boxesItemsList"></div>
+                        </section>
+                      </div>
+      
+                      <div class="calc-sidebar">
+                        <div class="summary-card" id="summaryCard">
+                          <div class="summary-mobile-header" id="summaryMobileHeader">
+                            <div class="summary-mobile-info" id="summaryMobileToggle">
+                              <span class="summary-mobile-label">Total due</span>
+                              <div class="summary-mobile-price-row">
+                                <span
+                                  class="summary-mobile-total"
+                                  id="mobileSummaryTotal"
+                                  >£0.00</span
+                                >
+                                <svg
+                                  class="summary-mobile-icon"
+                                  width="20"
+                                  height="20"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path d="m6 9 6 6 6-6" />
+                                </svg>
+                              </div>
+                            </div>
                             <button
                               type="button"
-                              class="calc-edit-btn"
-                              aria-label="Edit postcode"
+                              class="btn-continue"
+                              id="mobileContinueBtn"
+                              disabled
                             >
+                              Continue
+                            </button>
+                          </div>
+      
+                          <div class="summary-card__content">
+                            <h3 class="summary-card__title">
+                              Due now - upfront payment
+                            </h3>
+      
+                            <div class="summary-card__items" id="summaryItems">
+                              <div class="summary-empty">
+                                Please select items to store.
+                              </div>
+                            </div>
+      
+                            <div class="summary-card__totals">
+                              <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="summarySubtotal">£0.00</span>
+                              </div>
+                              <div class="summary-row summary-total">
+                                <span>Total</span>
+                                <span id="summaryTotal">£0.00</span>
+                              </div>
+                            </div>
+      
+                            <div class="summary-card__info">
                               <svg
-                                width="16"
-                                height="16"
+                                width="20"
+                                height="20"
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 stroke="currentColor"
@@ -288,294 +480,77 @@
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                               >
-                                <path
-                                  d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"
-                                />
-                                <path d="m15 5 4 4" />
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 16v-4" />
+                                <path d="M12 8h.01" />
                               </svg>
+                              <p>
+                                <strong>Flexible & Transparent.</strong> Cancel or
+                                modify your collection for free up to 24 hours before
+                                your scheduled slot. No hidden fees.
+                              </p>
+                            </div>
+      
+                            <button
+                              type="button"
+                              class="btn-continue desktop-continue"
+                              id="boxesContinueBtn"
+                              disabled
+                            >
+                              Continue
                             </button>
-                          </div>
-                          <div
-                            class="postcode-search-mode"
-                            id="postcodeSearchMode"
-                            style="display: none"
-                          >
-                            <svg
-                              class="search-icon"
-                              width="20"
-                              height="20"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            >
-                              <circle cx="11" cy="11" r="8" />
-                              <path d="m21 21-4.3-4.3" />
-                            </svg>
-                            <input
-                              type="text"
-                              class="calc-edit-input"
-                              autocomplete="off"
-                              placeholder="Enter postcode"
-                            />
-                            <ul class="autocomplete-list edit-autocomplete"></ul>
-                          </div>
-                        </div>
-                      </div>
-      
-                      <div class="calc-content">
-                        <div class="calc-wrapper" id="calcBoxesView">
-                          <div class="calc-steps">
-                            <div class="step is-active">
-                              <span class="step-num">1</span>
-                              <span class="step-text">Storage</span>
-                            </div>
-                            <div class="step-divider"></div>
-                            <div class="step">
-                              <span class="step-num">2</span>
-                              <span class="step-text">Address</span>
-                            </div>
-                            <div class="step-divider"></div>
-                            <div class="step">
-                              <span class="step-num">3</span>
-                              <span class="step-text">Materials</span>
-                            </div>
-                            <div class="step-divider"></div>
-                            <div class="step">
-                              <span class="step-num">4</span>
-                              <span class="step-text">Date</span>
-                            </div>
-                            <div class="step-divider"></div>
-                            <div class="step">
-                              <span class="step-num">5</span>
-                              <span class="step-text">Checkout</span>
-                            </div>
-                          </div>
-      
-                          <div class="calc-layout">
-                            <div class="calc-main">
-                              <section class="calc-section">
-                                <h3 class="calc-section-title">
-                                  How long are you storing?
-                                </h3>
-      
-                                <div class="duration-card" id="durationCard">
-                                  <div class="duration-card__header">
-                                    <p
-                                      class="duration-card__promo"
-                                      id="durationPromo"
-                                    >
-                                      The longer you store, the more you save. Enjoy a
-                                      <strong>45% discount!</strong>
-                                    </p>
-                                    <p
-                                      class="duration-card__rolling-text"
-                                      id="rollingText"
-                                      style="display: none"
-                                    >
-                                      You've selected a rolling monthly plan, order
-                                      your boxes back anytime.
-                                    </p>
-                                  </div>
-      
-                                  <div class="duration-card__controls">
-                                    <div class="qty-control duration-qty">
-                                      <button
-                                        type="button"
-                                        class="qty-btn"
-                                        id="durationMinus"
-                                      >
-                                        −
-                                      </button>
-                                      <input
-                                        type="number"
-                                        class="qty-input"
-                                        id="durationInput"
-                                        value="6"
-                                        min="1"
-                                        max="36"
-                                        readonly
-                                      />
-                                      <span class="qty-label">months</span>
-                                      <button
-                                        type="button"
-                                        class="qty-btn"
-                                        id="durationPlus"
-                                      >
-                                        +
-                                      </button>
-                                    </div>
-      
-                                    <button
-                                      type="button"
-                                      class="btn-text"
-                                      id="rollingPlanToggle"
-                                    >
-                                      Not sure how long?
-                                    </button>
-                                  </div>
-                                </div>
-                              </section>
-      
-                              <section class="calc-section">
-                                <h3 class="calc-section-title">
-                                  What are you storing?
-                                </h3>
-                                <div class="items-list" id="boxesItemsList"></div>
-                              </section>
-                            </div>
-      
-                            <div class="calc-sidebar">
-                              <div class="summary-card" id="summaryCard">
-                                <div
-                                  class="summary-mobile-header"
-                                  id="summaryMobileHeader"
-                                >
-                                  <div
-                                    class="summary-mobile-info"
-                                    id="summaryMobileToggle"
-                                  >
-                                    <span class="summary-mobile-label"
-                                      >Total due</span
-                                    >
-                                    <div class="summary-mobile-price-row">
-                                      <span
-                                        class="summary-mobile-total"
-                                        id="mobileSummaryTotal"
-                                        >£0.00</span
-                                      >
-                                      <svg
-                                        class="summary-mobile-icon"
-                                        width="20"
-                                        height="20"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                      >
-                                        <path d="m6 9 6 6 6-6" />
-                                      </svg>
-                                    </div>
-                                  </div>
-                                  <button
-                                    type="button"
-                                    class="btn-continue"
-                                    id="mobileContinueBtn"
-                                    disabled
-                                  >
-                                    Continue
-                                  </button>
-                                </div>
-      
-                                <div class="summary-card__content">
-                                  <h3 class="summary-card__title">
-                                    Due now - upfront payment
-                                  </h3>
-      
-                                  <div class="summary-card__items" id="summaryItems">
-                                    <div class="summary-empty">
-                                      Please select items to store.
-                                    </div>
-                                  </div>
-      
-                                  <div class="summary-card__totals">
-                                    <div class="summary-row">
-                                      <span>Subtotal</span>
-                                      <span id="summarySubtotal">£0.00</span>
-                                    </div>
-                                    <div class="summary-row summary-total">
-                                      <span>Total</span>
-                                      <span id="summaryTotal">£0.00</span>
-                                    </div>
-                                  </div>
-      
-                                  <div class="summary-card__info">
-                                    <svg
-                                      width="20"
-                                      height="20"
-                                      viewBox="0 0 24 24"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      stroke-width="2"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                    >
-                                      <circle cx="12" cy="12" r="10" />
-                                      <path d="M12 16v-4" />
-                                      <path d="M12 8h.01" />
-                                    </svg>
-                                    <p>
-                                      <strong>Flexible & Transparent.</strong> Cancel
-                                      or modify your collection for free up to 24
-                                      hours before your scheduled slot. No hidden
-                                      fees.
-                                    </p>
-                                  </div>
-      
-                                  <button
-                                    type="button"
-                                    class="btn-continue desktop-continue"
-                                    id="boxesContinueBtn"
-                                    disabled
-                                  >
-                                    Continue
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-      
-                        <div
-                          class="calc-wrapper"
-                          id="calcFurnitureView"
-                          style="display: none; opacity: 0"
-                        >
-                          <div class="calc-content-box">
-                            <svg
-                              class="calc-content-icon"
-                              width="48"
-                              height="48"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            >
-                              <path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3" />
-                              <path
-                                d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H6v-2a2 2 0 0 0-4 0Z"
-                              />
-                              <path d="M4 18v2" />
-                              <path d="M20 18v2" />
-                              <path d="M12 4v9" />
-                            </svg>
-                            <h3 class="calc-content-subtitle">
-                              Furniture & Boxes Calculator
-                            </h3>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
       
-                  <div class="storage-form__messages">
-                    <p class="storage-form__helper">
-                      Select storage type, enter your Postcode and click the arrow to
-                      see prices.
-                    </p>
-                    <p class="storage-form__error-text">
-                      Please enter your Postcode to continue
-                    </p>
+                  <div
+                    class="calc-wrapper"
+                    id="calcFurnitureView"
+                    style="display: none; opacity: 0"
+                  >
+                    <div class="calc-content-box">
+                      <svg
+                        class="calc-content-icon"
+                        width="48"
+                        height="48"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3" />
+                        <path
+                          d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H6v-2a2 2 0 0 0-4 0Z"
+                        />
+                        <path d="M4 18v2" />
+                        <path d="M20 18v2" />
+                        <path d="M12 4v9" />
+                      </svg>
+                      <h3 class="calc-content-subtitle">
+                        Furniture & Boxes Calculator
+                      </h3>
+                    </div>
                   </div>
-                </form>
+                </div>
               </div>
-            </section>
+            </div>
+      
+            <div class="storage-form__messages">
+              <p class="storage-form__helper">
+                Select storage type, enter your Postcode and click the arrow to see
+                prices.
+              </p>
+              <p class="storage-form__error-text">
+                Please enter your Postcode to continue
+              </p>
+            </div>
+          </form>
+        </div>
+      </section>
     </main>
 
         <footer class="site-footer-main">
