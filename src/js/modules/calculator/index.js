@@ -348,7 +348,7 @@ export function initCalculator() {
           }
 
           gsap.to(window, {
-            scrollTo: { y: heroTitle, offsetY: 100 },
+            scrollTo: { y: toggleExpandedSlot, offsetY: 80 },
             duration: 0.8,
             ease: "power2.inOut",
           });
