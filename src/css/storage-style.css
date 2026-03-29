@@ -900,7 +900,6 @@
   .calc-layout {
     grid-template-columns: 1fr;
     gap: 32px;
-    padding-bottom: 120px; /* Отступ под мобильную шторку */
     padding-left: 12px;
     padding-right: 12px;
   }
