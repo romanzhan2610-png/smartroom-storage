@@ -14,3 +14,6 @@ npm-debug.log*
 # Переменные окружения (важно!)
 .env
 .env.local
+
+# AI Context
+ai-context.txt
