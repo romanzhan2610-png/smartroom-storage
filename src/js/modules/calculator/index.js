@@ -1,11 +1,11 @@
 import { initPostcode } from "./postcode.js";
 import { initItems } from "./items.js";
+import { initUnits } from "./units.js";
 import { initDuration } from "./duration.js";
 import { animateExpand, animateCollapse } from "./animations.js";
+import { store } from "./state.js";
+import { initSidebar } from "./sidebar.js";
 
-/**
- * Точка входа калькулятора. Собирает DOM-узлы и инициализирует субмодули.
- */
 export function initCalculator() {
   gsap.registerPlugin(ScrollToPlugin);
 
@@ -34,52 +34,84 @@ export function initCalculator() {
   const calcBoxesView = document.getElementById("calcBoxesView");
   const calcFurnitureView = document.getElementById("calcFurnitureView");
 
-  // --- Субмодули ---
+  // --- Субмодули (данные) ---
   const postcode = initPostcode({
     form, errorText, currentPostcodeInput, mainAutocomplete,
     postcodePill, postcodeSearchMode, postcodeText,
     editInput, editAutocomplete,
   });
 
-  initItems({
-    boxesItemsList: document.getElementById("boxesItemsList"),
+  store.modules.items = initItems({
+    container: document.getElementById("boxesItemsList"),
+    onChange: () => store.notify(),
+  });
+
+  store.modules.units = initUnits({
+    container: document.getElementById("unitsListContainer"),
+    onChange: () => store.notify(),
+  });
+
+  store.modules.durationBoxes = initDuration({
+    minusBtn: document.getElementById("durationMinus"),
+    plusBtn: document.getElementById("durationPlus"),
+    input: document.getElementById("durationInput"),
+    toggleBtn: document.getElementById("rollingPlanToggle"),
+    promoText: document.getElementById("durationPromo"),
+    rollingText: document.getElementById("rollingText"),
+    qtyWrap: document.querySelector("#calcBoxesView .duration-qty"),
+  });
+
+  store.modules.durationFurn = initDuration({
+    minusBtn: document.getElementById("durationMinusFurn"),
+    plusBtn: document.getElementById("durationPlusFurn"),
+    input: document.getElementById("durationInputFurn"),
+    toggleBtn: document.getElementById("rollingPlanToggleFurn"),
+    promoText: document.getElementById("durationPromoFurn"),
+    rollingText: document.getElementById("rollingTextFurn"),
+    qtyWrap: document.getElementById("qtyWrapFurn"),
+  });
+
+  // --- UI Сайдбара (подписывается на стор и рендерит) ---
+  initSidebar({
+    store,
     summaryItems: document.getElementById("summaryItems"),
     summarySubtotal: document.getElementById("summarySubtotal"),
     summaryTotal: document.getElementById("summaryTotal"),
-    boxesContinueBtn: document.getElementById("boxesContinueBtn"),
+    continueBtn: document.getElementById("continueBtn"),
     mobileSummaryTotal: document.getElementById("mobileSummaryTotal"),
     mobileContinueBtn: document.getElementById("mobileContinueBtn"),
+    summaryCard: document.getElementById("summaryCard"),
+    summaryMobileToggle: document.getElementById("summaryMobileToggle"),
   });
-
-  initDuration();
-
-  // --- Мобильный аккордеон корзины ---
-  const summaryCard = document.getElementById("summaryCard");
-  const summaryMobileToggle = document.getElementById("summaryMobileToggle");
-  if (summaryMobileToggle) {
-    summaryMobileToggle.addEventListener("click", () =>
-      summaryCard.classList.toggle("is-expanded")
-    );
-  }
 
   // --- Переключатель типа хранения (Boxes / Furniture) ---
   function switchCalculator(targetValue) {
-    const viewToHide = targetValue === "boxes" ? calcFurnitureView : calcBoxesView;
-    const viewToShow = targetValue === "boxes" ? calcBoxesView : calcFurnitureView;
+    const viewToHide =
+      targetValue === "boxes" ? calcFurnitureView : calcBoxesView;
+    const viewToShow =
+      targetValue === "boxes" ? calcBoxesView : calcFurnitureView;
+
+    store.currentTab = targetValue;
+    store.notify();
 
     if (panel.classList.contains("is-expanded")) {
       gsap.to(viewToHide, {
-        opacity: 0, duration: 0.2,
+        opacity: 0,
+        duration: 0.2,
         onComplete: () => {
           viewToHide.style.display = "none";
-          viewToShow.style.display = "flex";
-          gsap.to(viewToShow, { opacity: 1, duration: 0.3, ease: "power2.out" });
+          viewToShow.style.display = "block"; // Changed to block, not flex, as it's a wrapper now
+          gsap.to(viewToShow, {
+            opacity: 1,
+            duration: 0.3,
+            ease: "power2.out",
+          });
         },
       });
     } else {
       viewToHide.style.display = "none";
       viewToHide.style.opacity = "0";
-      viewToShow.style.display = "flex";
+      viewToShow.style.display = "block";
       viewToShow.style.opacity = "1";
     }
   }
@@ -94,13 +126,15 @@ export function initCalculator() {
     });
   });
 
-  // --- Сабмит формы → анимация раскрытия ---
+  // --- Сабмит формы ---
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-
     const value = currentPostcodeInput ? currentPostcodeInput.value.trim() : "";
     if (!value || !postcode.validate(value)) {
-      gsap.to(form.querySelector(".storage-form__helper"), { opacity: 0, duration: 0.2 });
+      gsap.to(form.querySelector(".storage-form__helper"), {
+        opacity: 0,
+        duration: 0.2,
+      });
       gsap.to(errorText, { opacity: 1, duration: 0.2 });
       errorText.textContent = !value
         ? "Please enter your Postcode to continue"
@@ -109,7 +143,6 @@ export function initCalculator() {
       if (currentPostcodeInput) currentPostcodeInput.focus();
       return;
     }
-
     postcode.setSaved(value.toUpperCase());
     postcodeText.textContent = postcode.getSaved();
     form.classList.remove("is-invalid");
@@ -121,15 +154,25 @@ export function initCalculator() {
     setTimeout(() => {
       if (submitBtn) submitBtn.classList.remove("is-loading");
       messages.style.display = "none";
-
-      animateExpand({ panel, initialView, expandedView, sharedToggle, toggleExpandedSlot, messages });
+      animateExpand({
+        panel,
+        initialView,
+        expandedView,
+        sharedToggle,
+        toggleExpandedSlot,
+        messages,
+      });
     }, 800);
   });
 
-  // --- Кнопка Назад → анимация схлопывания ---
+  // --- Кнопка Назад ---
   backBtn.addEventListener("click", () => {
     animateCollapse({
-      panel, initialView, expandedView, sharedToggle, messages,
+      panel,
+      initialView,
+      expandedView,
+      sharedToggle,
+      messages,
       currentPostcodeInput,
       revertToPill: postcode.revertToPill,
       postcodeSearchMode,
