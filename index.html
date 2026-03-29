@@ -13,7 +13,7 @@
     <link rel="modulepreload" crossorigin href="/smartroom-storage/assets/modulepreload-polyfill.js">
     <link rel="stylesheet" crossorigin href="/smartroom-storage/assets/main.css">
   </head>
-  <body>
+  <body class="smartroom-calc-app">
         <header class="site-header">
           <div class="site-header__container">
             <a
@@ -142,7 +142,7 @@
         </header>
 
     <main>
-      <section class="storage-hero">
+      <section class="storage-hero smartroom-calc-app">
         <video class="storage-hero__video" autoplay loop muted playsinline>
           <source
             src="https://smartroom.co.uk/wp-content/themes/hello-elementor/4569931-uhd_4096_2160_25fps.mp4"
@@ -320,36 +320,35 @@
                 </div>
       
                 <div class="calc-content">
-                  <div class="calc-wrapper" id="calcBoxesView">
-                    <div class="calc-steps">
-                      <div class="step is-active">
-                        <span class="step-num">1</span>
-                        <span class="step-text">Storage</span>
-                      </div>
-                      <div class="step-divider"></div>
-                      <div class="step">
-                        <span class="step-num">2</span>
-                        <span class="step-text">Address</span>
-                      </div>
-                      <div class="step-divider"></div>
-                      <div class="step">
-                        <span class="step-num">3</span>
-                        <span class="step-text">Date</span>
-                      </div>
-                      <div class="step-divider"></div>
-                      <div class="step">
-                        <span class="step-num">4</span>
-                        <span class="step-text">Checkout</span>
-                      </div>
+                  <div class="calc-steps">
+                    <div class="step is-active">
+                      <span class="step-num">1</span>
+                      <span class="step-text">Storage</span>
                     </div>
+                    <div class="step-divider"></div>
+                    <div class="step">
+                      <span class="step-num">2</span>
+                      <span class="step-text">Address</span>
+                    </div>
+                    <div class="step-divider"></div>
+                    <div class="step">
+                      <span class="step-num">3</span>
+                      <span class="step-text">Date</span>
+                    </div>
+                    <div class="step-divider"></div>
+                    <div class="step">
+                      <span class="step-num">4</span>
+                      <span class="step-text">Checkout</span>
+                    </div>
+                  </div>
       
-                    <div class="calc-layout">
-                      <div class="calc-main">
+                  <div class="calc-layout">
+                    <div class="calc-main">
+                      <div class="calc-wrapper" id="calcBoxesView">
                         <section class="calc-section">
                           <h3 class="calc-section-title">
                             How long are you storing?
                           </h3>
-      
                           <div class="duration-card" id="durationCard">
                             <div class="duration-card__header">
                               <p class="duration-card__promo" id="durationPromo">
@@ -365,7 +364,6 @@
                                 boxes back anytime.
                               </p>
                             </div>
-      
                             <div class="duration-card__controls">
                               <div class="qty-control duration-qty">
                                 <button
@@ -393,7 +391,6 @@
                                   +
                                 </button>
                               </div>
-      
                               <button
                                 type="button"
                                 class="btn-text"
@@ -411,66 +408,87 @@
                         </section>
                       </div>
       
-                      <div class="calc-sidebar">
-                        <div class="summary-card" id="summaryCard">
-                          <div class="summary-mobile-header" id="summaryMobileHeader">
-                            <div class="summary-mobile-info" id="summaryMobileToggle">
-                              <span class="summary-mobile-label">Total due</span>
-                              <div class="summary-mobile-price-row">
-                                <span
-                                  class="summary-mobile-total"
-                                  id="mobileSummaryTotal"
-                                  >£0.00</span
-                                >
-                                <svg
-                                  class="summary-mobile-icon"
-                                  width="20"
-                                  height="20"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  stroke-width="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                >
-                                  <path d="m6 9 6 6 6-6" />
-                                </svg>
-                              </div>
+                      <div
+                        class="calc-wrapper"
+                        id="calcFurnitureView"
+                        style="display: none; opacity: 0"
+                      >
+                        <section class="calc-section">
+                          <h3 class="calc-section-title">
+                            How long are you storing?
+                          </h3>
+                          <div class="duration-card" id="durationCardFurn">
+                            <div class="duration-card__header">
+                              <p class="duration-card__promo" id="durationPromoFurn">
+                                The longer you store, the more you save. Enjoy a
+                                <strong>45% discount!</strong>
+                              </p>
+                              <p
+                                class="duration-card__rolling-text"
+                                id="rollingTextFurn"
+                                style="display: none"
+                              >
+                                You've selected a rolling monthly plan, order your
+                                boxes back anytime.
+                              </p>
                             </div>
-                            <button
-                              type="button"
-                              class="btn-continue"
-                              id="mobileContinueBtn"
-                              disabled
-                            >
-                              Continue
-                            </button>
+                            <div class="duration-card__controls">
+                              <div class="qty-control duration-qty" id="qtyWrapFurn">
+                                <button
+                                  type="button"
+                                  class="qty-btn"
+                                  id="durationMinusFurn"
+                                >
+                                  −
+                                </button>
+                                <input
+                                  type="number"
+                                  class="qty-input"
+                                  id="durationInputFurn"
+                                  value="6"
+                                  min="1"
+                                  max="36"
+                                  readonly
+                                />
+                                <span class="qty-label">months</span>
+                                <button
+                                  type="button"
+                                  class="qty-btn"
+                                  id="durationPlusFurn"
+                                >
+                                  +
+                                </button>
+                              </div>
+                              <button
+                                type="button"
+                                class="btn-text"
+                                id="rollingPlanToggleFurn"
+                              >
+                                Not sure how long?
+                              </button>
+                            </div>
                           </div>
+                        </section>
       
-                          <div class="summary-card__content">
-                            <h3 class="summary-card__title">
-                              Due now - upfront payment
-                            </h3>
-      
-                            <div class="summary-card__items" id="summaryItems">
-                              <div class="summary-empty">
-                                Please select items to store.
-                              </div>
-                            </div>
-      
-                            <div class="summary-card__totals">
-                              <div class="summary-row">
-                                <span>Subtotal</span>
-                                <span id="summarySubtotal">£0.00</span>
-                              </div>
-                              <div class="summary-row summary-total">
-                                <span>Total</span>
-                                <span id="summaryTotal">£0.00</span>
-                              </div>
-                            </div>
-      
-                            <div class="summary-card__info">
+                        <section class="calc-section">
+                          <h3 class="calc-section-title">Select your unit size</h3>
+                          <div class="units-grid" id="unitsListContainer"></div>
+                        </section>
+                      </div>
+                    </div>
+                    <div class="calc-sidebar">
+                      <div class="summary-card" id="summaryCard">
+                        <div class="summary-mobile-header" id="summaryMobileToggle">
+                          <div class="summary-mobile-info">
+                            <span class="summary-mobile-label">Total due</span>
+                            <div class="summary-mobile-price-row">
+                              <span
+                                class="summary-mobile-total"
+                                id="mobileSummaryTotal"
+                                >£0.00</span
+                              >
                               <svg
+                                class="summary-mobile-icon"
                                 width="20"
                                 height="20"
                                 viewBox="0 0 24 24"
@@ -480,59 +498,73 @@
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                               >
-                                <circle cx="12" cy="12" r="10" />
-                                <path d="M12 16v-4" />
-                                <path d="M12 8h.01" />
+                                <path d="m6 9 6 6 6-6" />
                               </svg>
-                              <p>
-                                <strong>Flexible & Transparent.</strong> Cancel or
-                                modify your collection for free up to 24 hours before
-                                your scheduled slot. No hidden fees.
-                              </p>
                             </div>
-      
-                            <button
-                              type="button"
-                              class="btn-continue desktop-continue"
-                              id="boxesContinueBtn"
-                              disabled
-                            >
-                              Continue
-                            </button>
                           </div>
+                          <button
+                            type="button"
+                            class="btn-continue"
+                            id="mobileContinueBtn"
+                            disabled
+                          >
+                            Continue
+                          </button>
+                        </div>
+      
+                        <div class="summary-card__content">
+                          <h3 class="summary-card__title">
+                            Due now - upfront payment
+                          </h3>
+                          <div class="summary-card__items" id="summaryItems">
+                            <div class="summary-empty">
+                              Please select items to store.
+                            </div>
+                          </div>
+      
+                          <div class="summary-card__totals">
+                            <div class="summary-row">
+                              <span>Subtotal</span>
+                              <span id="summarySubtotal">£0.00</span>
+                            </div>
+                            <div class="summary-row summary-total">
+                              <span>Total</span>
+                              <span id="summaryTotal">£0.00</span>
+                            </div>
+                          </div>
+      
+                          <div class="summary-card__info">
+                            <svg
+                              width="20"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <circle cx="12" cy="12" r="10" />
+                              <path d="M12 16v-4" />
+                              <path d="M12 8h.01" />
+                            </svg>
+                            <p>
+                              <strong>Flexible & Transparent.</strong> Cancel or
+                              modify your collection for free up to 24 hours before
+                              your scheduled slot. No hidden fees.
+                            </p>
+                          </div>
+      
+                          <button
+                            type="button"
+                            class="btn-continue desktop-continue"
+                            id="continueBtn"
+                            disabled
+                          >
+                            Continue
+                          </button>
                         </div>
                       </div>
-                    </div>
-                  </div>
-      
-                  <div
-                    class="calc-wrapper"
-                    id="calcFurnitureView"
-                    style="display: none; opacity: 0"
-                  >
-                    <div class="calc-content-box">
-                      <svg
-                        class="calc-content-icon"
-                        width="48"
-                        height="48"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3" />
-                        <path
-                          d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H6v-2a2 2 0 0 0-4 0Z"
-                        />
-                        <path d="M4 18v2" />
-                        <path d="M20 18v2" />
-                        <path d="M12 4v9" />
-                      </svg>
-                      <h3 class="calc-content-subtitle">
-                        Furniture & Boxes Calculator
-                      </h3>
                     </div>
                   </div>
                 </div>
